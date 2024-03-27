@@ -37,7 +37,7 @@ fn python_impl(input: TokenStream) -> Result<TokenStream, TokenStream> {
 				.map_err(|err| error::compile_error_msg(py, err, tokens))?;
 
 			Ok(Literal::byte_string(
-				PyBytes::from_owned_ptr_or_err(py, ffi::PyMarshal_WriteObjectToString(code.as_ptr(), pyo3::marshal::VERSION))
+				PyBytes::from_owned_ptr_or_err(py, ffi::PyMarshal_WriteObjectToString(code.as_ptr(), 4))
 					.map_err(|_e| quote!(compile_error! {"failed to generate python bytecode"}))?
 					.as_bytes(),
 			))
